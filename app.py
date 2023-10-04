@@ -1,6 +1,24 @@
 from fastapi import FastAPI
 import uvicorn
 import functions
+from pydantic import BaseModel
+
+class config_donnees(BaseModel):
+    age:int
+    job:str
+    marital:str
+    education:str
+    default:str
+    balance:int
+    housing:str
+    loan:str
+    contact:str
+    day:int
+    month:str
+    duration:int
+    campaign:int
+    pdays:int
+    previous:int
 
 app = FastAPI(
     title="API prédictions accords bancaire",
@@ -10,8 +28,8 @@ Descritption de l'api ici !!!
 )
 
 # Définir une route POST pour la commande
-@app.get("/predict")
-def predict(n:dict):
+@app.post("/predict")
+def predict(n:config_donnees):
     transform = functions.scal_lab(n)
     prediction= functions.predictions(transform)
     return prediction.json()
