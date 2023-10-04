@@ -9,9 +9,12 @@ values_list = joblib.load('encoders')
 st.title("Formulaire:")
 
 # Input de type number
-age = st.number_input("Saisissez votre âge", min_value=0, max_value=100, step=1)
+age = st.number_input("Saisissez l'âge", min_value=0, max_value=100, step=1)
 
 # Input avec plusieurs options
+job = st.selectbox("Sélectionnez l'emploi", ["admin.", "inconnu", "chômeur", "gestion", "femme de ménage", "entrepreneur", "étudiant", "col bleu", "indépendant", "retraité", "technicien", "services"])
+marital = st.selectbox("Sélectionnez l'état civil", ["marié", "divorcé", "célibataire"])
+education = st.selectbox("Sélectionnez le niveau d'étude", ["inconnu", "secondaire", "primaire", "tertiaire"])
 job = st.selectbox("Sélectionnez une option", values_list['job'].classes_.tolist())
 marital = st.selectbox('Sélectionnez une option', values_list['marital'].classes_.tolist())
 education = st.selectbox('Sélectionnez une option', values_list['education'].classes_.tolist())
@@ -23,17 +26,20 @@ default = st.checkbox("Le crédit est-il en défaut ?")
 balance = st.number_input("Saisissez votre solde", min_value=-5000, max_value=5000, step=1, value=0)
 
 # Champ de type case à cocher à deux choix
-housing = st.checkbox("Avez-vous contracter un prêt logement ?")
-loan = st.checkbox('Avez-vous contracter un prêt personnel ?')
+housing = st.checkbox("Un prêt logement a-t-il été contracté ?")
+loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
 
 # Input avec plusieurs options
+
 contact = st.selectbox("type de communication du contact",  values_list['contact'].classes_.tolist())
+
 
 # Input de type number
 date = st.number_input("Dernier jour du contact du mois", min_value=0, max_value=31, step=1)
 
 # Input avec plusieurs options
 month = st.selectbox("type de communication du contact",  values_list['month'].classes_.tolist())
+
 
 # Input de type number
 duration = st.number_input("Durée du dernier contact, en secondes", min_value=0, max_value=5000, step=1)
