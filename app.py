@@ -12,12 +12,9 @@ st.title("Formulaire:")
 age = st.number_input("Saisissez l'âge", min_value=0, max_value=100, step=1)
 
 # Input avec plusieurs options
-job = st.selectbox("Sélectionnez l'emploi", ["admin.", "inconnu", "chômeur", "gestion", "femme de ménage", "entrepreneur", "étudiant", "col bleu", "indépendant", "retraité", "technicien", "services"])
-marital = st.selectbox("Sélectionnez l'état civil", ["marié", "divorcé", "célibataire"])
-education = st.selectbox("Sélectionnez le niveau d'étude", ["inconnu", "secondaire", "primaire", "tertiaire"])
-job = st.selectbox("Sélectionnez une option", values_list['job'].classes_.tolist())
-marital = st.selectbox('Sélectionnez une option', values_list['marital'].classes_.tolist())
-education = st.selectbox('Sélectionnez une option', values_list['education'].classes_.tolist())
+job = st.selectbox("Sélectionnez l'emploi", values_list['job'].classes_.tolist())
+marital = st.selectbox("Sélectionnez l'état civil", values_list['marital'].classes_.tolist())
+education = st.selectbox("Sélectionnez le niveau d'étude", values_list['education'].classes_.tolist())
 
 # Champ de type case à cocher à deux choix
 default = st.checkbox("Le crédit est-il en défaut ?")
