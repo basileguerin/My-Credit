@@ -3,7 +3,7 @@ import uvicorn
 import functions
 from pydantic import BaseModel
 
-class config_donnees(BaseModel):
+class Config_donnees(BaseModel):
     age:int
     job:str
     marital:str
@@ -19,6 +19,7 @@ class config_donnees(BaseModel):
     campaign:int
     pdays:int
     previous:int
+    poutcome:str
 
 app = FastAPI(
     title="API prédictions accords bancaire",
@@ -29,11 +30,11 @@ Descritption de l'api ici !!!
 
 # Définir une route POST pour la commande
 @app.post("/predict")
-def predict(n:config_donnees):
-    print(n)
+def predict(n:Config_donnees):
     transform = functions.scal_lab(n)
     prediction= functions.predictions(transform)
-    return prediction.json()
+    print("$$$$$$$$$$$$$$$$$$$$$$$$$",prediction)
+    return prediction
 
 if __name__=='__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)
