@@ -1,20 +1,20 @@
 import streamlit as st
+import joblib
 # import requests
 # import pydantic
 
+values_list = joblib.load('encoders')
+
 # Titre de l'application
 st.title("Formulaire:")
-
-# # Champ de texte
-# age = st.text_input("Entrez votre âge")
 
 # Input de type number
 age = st.number_input("Saisissez votre âge", min_value=0, max_value=100, step=1)
 
 # Input avec plusieurs options
-job = st.selectbox("Sélectionnez une option", ["admin.", "inconnu", "chômeur", "gestion", "femme de ménage", "entrepreneur", "étudiant", "col bleu", "indépendant", "retraité", "technicien", "services"])
-marital = st.selectbox('Sélectionnez une option', ["marié", "divorcé", "célibataire"])
-education = st.selectbox('Sélectionnez une option', ["inconnu", "secondaire", "primaire", "tertiaire"])
+job = st.selectbox("Sélectionnez une option", values_list['job'].classes_.tolist())
+marital = st.selectbox('Sélectionnez une option', values_list['marital'].classes_.tolist())
+education = st.selectbox('Sélectionnez une option', values_list['education'].classes_.tolist())
 
 # Champ de type case à cocher à deux choix
 default = st.checkbox("Le crédit est-il en défaut ?")
@@ -27,13 +27,13 @@ housing = st.checkbox("Avez-vous contracter un prêt logement ?")
 loan = st.checkbox('Avez-vous contracter un prêt personnel ?')
 
 # Input avec plusieurs options
-contact = st.selectbox("type de communication du contact",  ["inconnu", "téléphone", "cellulaire"])
+contact = st.selectbox("type de communication du contact",  values_list['contact'].classes_.tolist())
 
 # Input de type number
 date = st.number_input("Dernier jour du contact du mois", min_value=0, max_value=31, step=1)
 
 # Input avec plusieurs options
-month = st.selectbox("type de communication du contact",  ["janvier", "février", "mars", "avril", "mai", "juin", 'juillet', 'septembre', 'octobre', 'novembre', 'decembre'])
+month = st.selectbox("type de communication du contact",  values_list['month'].classes_.tolist())
 
 # Input de type number
 duration = st.number_input("Durée du dernier contact, en secondes", min_value=0, max_value=5000, step=1)
@@ -42,7 +42,7 @@ pdays = st.number_input("Nombre de jours écoulés après que le client a été 
 previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client', min_value=0, step=1)
 
 # Input avec plusieurs options
-poutcome = st.selectbox('résultat de la campagne marketing précédente', [ "inconnu", "autre", "échec", "succès"])
+poutcome = st.selectbox('résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
 
 # Bouton pour soumettre le formulaire
 if st.button("Soumettre"):
