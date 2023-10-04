@@ -2,7 +2,7 @@ import streamlit as st
 import joblib
 # import requests
 
-def formulaires():
+def formulaire():
     # récupération du dictionnaire de labelencoders
     values_list = joblib.load('encoders')
 
@@ -48,16 +48,19 @@ def formulaires():
     poutcome = st.selectbox('résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
 
     # Bouton pour soumettre le formulaire
-    if st.button("Soumettre"):
-        st.session_state.page = "Response" 
+    if st.button("Soumettre"):        
         data_json = {"age": age, "job": job, "marital": marital, "education": education, "default": default, 
         "balance": balance, "housing": housing, "loan": loan, "contact": contact, "date": date, "month": month,
         "duration": duration, "compaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}
         st.session_state.donnees_formulaire = data_json
+
+        # st.session_state.page = "Response" 
         # st.write(data_json)
         # response = requests.post('http://127.0.0.0.0:8000/predict', json= data_json)
         # return response.json()
-        
+
+        # Rediriger vers la page de réponse en masquant le formulaire
+        st.session_state.show_formulaire = False    
 
 def response():
     if hasattr(st.session_state, "donnees_formulaire"):
@@ -66,16 +69,21 @@ def response():
     else:
         st.warning("Aucune donnée de formulaire soumise.")
     
-# Vérifiez l'état actuel pour décider quelle page afficher
-if "page" not in st.session_state:
-    st.session_state.page = "Formulaire"
-
-if st.session_state.page == "Formulaire":
-    formulaires()
-elif st.session_state.page == "Response":
-    response()
+# Définir la disposition de l'application
+def main():
+    # Initialisation de l'état de session
+    if 'show_formulaire' not in st.session_state:
+        st.session_state.show_formulaire = True
+    
+    if st.session_state.show_formulaire:
+        formulaire()
+    else:
+        response()
 
 print(st.session_state)
+
+if __name__ == "__main__":
+    main()
 
 
 
