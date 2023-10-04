@@ -30,6 +30,7 @@ Descritption de l'api ici !!!
 # Définir une route POST pour la commande
 @app.post("/predict")
 def predict(n:config_donnees):
+    print(n)
     transform = functions.scal_lab(n)
     prediction= functions.predictions(transform)
     return prediction.json()
