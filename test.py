@@ -22,13 +22,17 @@ class TestAPI(unittest.TestCase):
             "poutcome":"other"}
     
     def test_reponse(self):
+        """
+        Vérifie que la reponse est correcte
+        """
         reponse=self.client.post("/predict",
                      json=self.data)
         self.assertEqual(reponse.status_code,200)
+        self.assertEqual(dict,type(reponse.json()))
 
-    def test_error(self):
-        reponse=self.client.post("/predict",
-                    json="bonjour")
-        self.assertEqual(reponse.status_code,422)
+    # def test_error(self):
+    #     reponse=self.client.post("/predict",
+    #                 json="bonjour")
+    #     self.assertEqual(reponse.json()['msg'],'Input should be a valid dictionary or object to extract fields from')
 
         

@@ -2,8 +2,6 @@ from fastapi import FastAPI
 import uvicorn
 import functions
 
-
-
 app = FastAPI(
     title="API prédictions accords bancaire",
     descrtiption="""
@@ -36,9 +34,12 @@ def predict(n:functions.Config_donnees):
     ### proba correspond à la probabilité d'acceptation du dossier
     ### importance est une liste avec une liste des varibales avec la liste du pourcentage d'importance
     """
-    transform = functions.scal_lab(n)
-    prediction= functions.predictions(transform)
-    return prediction
+    try:
+        transform = functions.scal_lab(n)
+        prediction= functions.predictions(transform)
+        return prediction
+    except Exception as e:
+        return f"Une erreur inattendue s'est produite : {e}"
 
 if __name__=='__main__':
     uvicorn.run(app, host='127.0.0.1', port=8001)
