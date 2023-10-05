@@ -51,7 +51,6 @@ def formulaire():
 
             st.session_state.donnees_formulaire = data_json
 
-            # st.write(data_json)
             # response = requests.post('http://127.0.0.0.0:8000/predict', json= data_json)
             # return response.json()
 
@@ -61,7 +60,7 @@ def formulaire():
             # Rediriger vers la page de réponse en masquant le formulaire
             st.session_state.show_formulaire = False  
 
-            st.experimental_rerun()
+            st.rerun()
         
     with col3bis:
             st.write('')
@@ -143,7 +142,7 @@ def response():
             # recharge la page pour une nouvelle prédiction
             if st.button("Recharger la page"):
                 st.session_state.show_formulaire = True
-                st.experimental_rerun()
+                st.rerun()
 
         with col3:
              st.write('')
