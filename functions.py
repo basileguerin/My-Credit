@@ -29,6 +29,7 @@ class Config_donnees(BaseModel):
 class reponse_model(BaseModel):
     reponse:str
     proba:float
+    importance:list
 
 
 def scal_lab(n:dict) ->list:
@@ -75,5 +76,18 @@ def predictions(data:list) -> dict:
     result = model.predict(data)
     proba = model.predict_proba(data)
     pred = enc['y'].inverse_transform(result)[0]
-    return {'reponse':pred,'proba':round(proba[0][1]*100,2)}
+
+    # Bonus importances des features
+    liste_features = ["age", "job", "marital", "educations", "default", "balance",
+                 "housing", "loan", "contact", "day", "month", "duration",
+                 "camapaign", "pdays", "previous", "poutcome"]
+    probs = model.feature_importances_
+    top_indices = np.argsort(probs)[-3:]
+    top_features = [liste_features[i] for i in top_indices]
+    liste_importances=[]
+    for i, feature in enumerate(top_features):
+        liste_importances.append([feature,round(probs[top_indices[-i-1]] * 100, 2)])
+    return {'reponse':pred,
+            'proba':round(proba[0][1]*100,2),
+            'importance':liste_importances}
 
