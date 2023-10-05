@@ -18,11 +18,11 @@ def formulaire():
         job = st.selectbox("Sélectionnez l'emploi", values_list['job'].classes_.tolist())
         marital = st.selectbox("Sélectionnez l'état civil", values_list['marital'].classes_.tolist())
         education = st.selectbox("Sélectionnez le niveau d'étude", values_list['education'].classes_.tolist())
-        default = st.checkbox("Le crédit est-il en défaut ?")  
         balance = st.number_input("Saisissez votre solde", min_value=-8019, max_value=1021270, step=1, value=0)      
 
     # Colonne 2
     with col2:
+        default = st.checkbox("Le crédit est-il en défaut ?")  
         housing = st.checkbox("Un prêt logement a-t-il été contracté ?")
         loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
         contact = st.selectbox("type de communication du contact",  values_list['contact'].classes_.tolist())
