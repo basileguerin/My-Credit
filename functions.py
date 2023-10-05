@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_echarts import st_echarts
 import joblib
 import requests
+import pandas as pd
 
 def formulaire():
     # récupération du dictionnaire de labelencoders
@@ -15,7 +16,7 @@ def formulaire():
 
     # Colonne 1
     with col1:
-        age = st.slider("Sélectionnez l'âge", min_value=18, max_value=95, step=1)
+        age = st.slider("Sélectionnez l'âge", min_value=18, max_value=95, step=1, help='toto')
         job = st.selectbox("Sélectionnez l'emploi", values_list['job'].classes_.tolist())
         marital = st.selectbox("Sélectionnez l'état civil", values_list['marital'].classes_.tolist())
         education = st.selectbox("Sélectionnez le niveau d'étude", values_list['education'].classes_.tolist())
@@ -129,8 +130,23 @@ def response():
         st.write("<h1 style='text-align: center; margin: 0 0 25px 0'>Réponse de l'acceptation de crédit</h1>", unsafe_allow_html=True)
         st_echarts(options=option)
         st.write(f'<div style="text-align:center; font-size: 30px">Réponse: {"Pas accepté" if st.session_state["response"]["reponse"] == "no" else "Accepté"}</div>', unsafe_allow_html=True)
-        
-            # Divisez la mise en page en deux colonnes
+
+        # Divisez la mise en page en trois colonnes
+        col1_df, col2_df, col3_df = st.columns([0.18, 0.64, 0.18])
+
+        with col1_df:
+             st.write('')
+
+        with col2_df:           
+            # Créez le DataFrame
+            st.write('')
+            df = pd.DataFrame([st.session_state['response']['importance'][1]], columns=st.session_state['response']['importance'][0])
+            st.dataframe(df)
+
+        with col3_df:
+             st.write('')
+
+        # Divisez la mise en page en trois colonnes
         col1, col2, col3 = st.columns([0.45, 0.1, 0.45])
 
         with col1:

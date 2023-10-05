@@ -1,5 +1,4 @@
 import streamlit as st
-# import requests
 from functions import *  
 
 st.set_page_config(layout="wide",  page_icon="🧊", page_title="Predict",)
