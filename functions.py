@@ -25,9 +25,9 @@ def formulaire():
         default = st.checkbox("Le crédit est-il en défaut ?")  
         housing = st.checkbox("Un prêt logement a-t-il été contracté ?")
         loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
-        contact = st.selectbox("Type de communication du contact",  values_list['contact'].classes_.tolist())
-        day = st.slider("Dernier jour du contact du mois", min_value=1, max_value=31, step=1)
-        month = st.selectbox("Type de communication du contact",  values_list['month'].classes_.tolist())              
+        contact = st.selectbox("Type de communication du contact ?",  values_list['contact'].classes_.tolist())
+        day = st.slider("Dernier jour du contact du mois ?", min_value=1, max_value=31, step=1)
+        month = st.selectbox("Dernier mois de contact de l'année ?",  values_list['month'].classes_.tolist())              
 
     # Colonne 3
     with col3:       
