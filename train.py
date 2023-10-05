@@ -62,3 +62,4 @@ def test_model(csv_test_path: str, model: XGBClassifier, scalers: dict, encoders
     print(f"Accuracy : {accuracy}")
     print(f"Confusion Matrix :\n{confusion_matrix_result}")
     print(f"Classification Report :\n{classification_report_result}")
+
