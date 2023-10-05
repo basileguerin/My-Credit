@@ -3,6 +3,7 @@ from streamlit_echarts import st_echarts
 import joblib
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def formulaire():
     # récupération du dictionnaire de labelencoders
@@ -51,7 +52,7 @@ def formulaire():
             "balance": balance, "housing": 'yes' if housing else 'no', "loan": 'yes' if loan else 'no', "contact": contact, "day": day, "month": month,
             "duration": duration, "campaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}
 
-            st.session_state.donnees_formulaire = data_json
+            st.session_state.donnees_formulaire = data_json     
 
             response = requests.post('https://api-isen-g1-46331383ef49.herokuapp.com/predict', json= data_json)
             st.session_state.response = response.json()
@@ -65,13 +66,7 @@ def formulaire():
             st.write('')
      
 
-def response():
-        # if hasattr(st.session_state, "donnees_formulaire"):
-        #     st.write("Données soumises par l'utilisateur:")
-        #     st.write(st.session_state.donnees_formulaire)
-        # else:
-        #     st.warning("Aucune donnée de formulaire soumise.")
-        
+def response():        
         # affichage du graphique    
         option = {
             "tooltip": {
@@ -137,11 +132,12 @@ def response():
         with col1_df:
              st.write('')
 
-        with col2_df:           
-            # Créez le DataFrame
+        with col2_df:    
             st.write('')
-            df = pd.DataFrame([st.session_state['response']['importance'][1]], columns=st.session_state['response']['importance'][0])
-            st.dataframe(df)
+ 
+            # génération du graphique à partir d'un dataframe
+            df = pd.DataFrame({'keys':st.session_state['response']['importance'][0], 'values':st.session_state['response']['importance'][1]})    
+            st.bar_chart(df.set_index('keys'))
 
         with col3_df:
              st.write('')
