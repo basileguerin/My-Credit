@@ -3,7 +3,6 @@ from streamlit_echarts import st_echarts
 import joblib
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
 
 def formulaire():
     # récupération du dictionnaire de labelencoders
