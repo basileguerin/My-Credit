@@ -14,7 +14,7 @@ def formulaire():
 
     # Colonne 1
     with col1:
-        age = st.number_input("Saisissez l'âge", min_value=18, max_value=95, step=1)
+        age = st.slider("Sélectionnez l'âge", min_value=18, max_value=95, step=1)
         job = st.selectbox("Sélectionnez l'emploi", values_list['job'].classes_.tolist())
         marital = st.selectbox("Sélectionnez l'état civil", values_list['marital'].classes_.tolist())
         education = st.selectbox("Sélectionnez le niveau d'étude", values_list['education'].classes_.tolist())
@@ -25,9 +25,9 @@ def formulaire():
         default = st.checkbox("Le crédit est-il en défaut ?")  
         housing = st.checkbox("Un prêt logement a-t-il été contracté ?")
         loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
-        contact = st.selectbox("type de communication du contact",  values_list['contact'].classes_.tolist())
-        day = st.number_input("Dernier jour du contact du mois", min_value=1, max_value=31, step=1)
-        month = st.selectbox("type de communication du contact",  values_list['month'].classes_.tolist())              
+        contact = st.selectbox("Type de communication du contact",  values_list['contact'].classes_.tolist())
+        day = st.slider("Dernier jour du contact du mois", min_value=1, max_value=31, step=1)
+        month = st.selectbox("Type de communication du contact",  values_list['month'].classes_.tolist())              
 
     # Colonne 3
     with col3:       
@@ -35,7 +35,7 @@ def formulaire():
         campaign = st.number_input('Nombre de contacts effectués pendant cette campagne', min_value=1, max_value=63, step=1)
         pdays = st.number_input("Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente", min_value=-1, max_value= 871 ,  step=1)
         previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client', min_value=0, max_value= 275, step=1)
-        poutcome = st.selectbox('résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
+        poutcome = st.selectbox('Résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
 
     col1bis, col2bis, col3bis = st.columns([0.45, 0.1, 0.45])
 
