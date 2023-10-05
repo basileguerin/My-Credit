@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from xgboost import XGBClassifier
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="xgboost")
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 def get_data(csv_path: str):
@@ -52,7 +54,7 @@ def test_model(csv_test_path: str, model: XGBClassifier, scalers: dict, encoders
     for col, le in encoders.items():
         df[col] = le.transform(df[col])
     for col, scaler in scalers.items():
-        df[col] = scaler.transform(df[col])
+        df[col] = scaler.transform(df[col].values.reshape(-1, 1))
     X = df.drop('y', axis=1)
     y = df['y']
     y_pred = model.predict(X)
@@ -62,3 +64,7 @@ def test_model(csv_test_path: str, model: XGBClassifier, scalers: dict, encoders
     print(f"Accuracy : {accuracy}")
     print(f"Confusion Matrix :\n{confusion_matrix_result}")
     print(f"Classification Report :\n{classification_report_result}")
+
+if __name__ == "__main__":
+    model, scalers, encoders = train_model("./train.csv")
+    test_model("./test.csv", model, scalers, encoders)
