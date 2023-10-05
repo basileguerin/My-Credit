@@ -46,7 +46,7 @@ def train_model(csv_train_path: str):
 def test_model(csv_test_path: str, model: XGBClassifier, scalers: dict, encoders: dict):
     """
     A partir du chemin d'un fichier csv contenant des données de test, d'un modèle entraîné et des dictionnaires d'encoders et scalers;
-    cette fonction print l'accuracy du modèlen une matrice de confusion et un classification report.
+    cette fonction print l'accuracy du modèle, une matrice de confusion et un classification report.
     """
     df = get_data(csv_test_path)
     for col, le in encoders.items():
@@ -62,4 +62,3 @@ def test_model(csv_test_path: str, model: XGBClassifier, scalers: dict, encoders
     print(f"Accuracy : {accuracy}")
     print(f"Confusion Matrix :\n{confusion_matrix_result}")
     print(f"Classification Report :\n{classification_report_result}")
-
