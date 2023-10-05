@@ -1,0 +1,8 @@
+name: Unit Tests
+
+on: [push]
+
+jobs:
+  test:
+    -name: Run units tests
+    run: python ../../test.py
