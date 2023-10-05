@@ -58,6 +58,9 @@ def formulaire():
         # response = requests.post('http://127.0.0.0.0:8000/predict', json= data_json)
         # return response.json()
 
+        response = {'reponse': 'no', 'proba': '29.78'}
+        st.session_state.response = response
+
         # Rediriger vers la page de réponse en masquant le formulaire
         st.session_state.show_formulaire = False    
 
@@ -67,13 +70,15 @@ def response():
     #     st.write(st.session_state.donnees_formulaire)
     # else:
     #     st.warning("Aucune donnée de formulaire soumise.")
+    
+    # affichage du graphique
     st.set_page_config(layout="wide")
     option = {
         "tooltip": {
             "formatter": '{a} <br/>{b} : {c}%'
         },
         "series": [{
-            "name": '进度',
+            "name": '',
             "type": 'gauge',
             "startAngle": 180,
             "endAngle": 0,
@@ -114,12 +119,16 @@ def response():
                 "valueAnimation": "true",
             },
             "data": [{
-                "value": 66.66,
-                "name": '百分比'
+                #récupère la valeur de la réponse stockée dans l'état pour l'afficher
+                "value": float(st.session_state['response']['proba']),
+                "name": "Probabilité d'acceptation"
             }]
         }]
     };
+
+    st.write('<div style="text-align:center; font-size: 30px; font-weight: bold">Réponse:</div>', unsafe_allow_html=True)
     st_echarts(options=option)
+    st.write(f'<div style="text-align:center; font-size: 30px">{"Pas accepté" if st.session_state["response"]["reponse"] == "no" else "Accepté"}</div>', unsafe_allow_html=True)
     
     
 # Définir la disposition de l'application
