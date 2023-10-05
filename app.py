@@ -34,6 +34,7 @@ def predict(n:functions.Config_donnees):
     - **poutcome**:"other"
     ### reponse est égale à 'yes' ou 'no'
     ### proba correspond à la probabilité d'acceptation du dossier
+    ### importance correspond aux 3 variables avec leur pourcentages qui ont le plus d'importance dans la décision du modèle
     """
     transform = functions.scal_lab(n)
     prediction= functions.predictions(transform)
