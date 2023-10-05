@@ -1,25 +1,8 @@
 from fastapi import FastAPI
 import uvicorn
 import functions
-from pydantic import BaseModel
 
-class Config_donnees(BaseModel):
-    age:int
-    job:str
-    marital:str
-    education:str
-    default:str
-    balance:int
-    housing:str
-    loan:str
-    contact:str
-    day:int
-    month:str
-    duration:int
-    campaign:int
-    pdays:int
-    previous:int
-    poutcome:str
+
 
 app = FastAPI(
     title="API prédictions accords bancaire",
@@ -29,8 +12,29 @@ Descritption de l'api ici !!!
 )
 
 # Définir une route POST pour la commande
-@app.post("/predict")
-def predict(n:Config_donnees):
+@app.post("/predict", response_model=functions.reponse_model, summary="Prédictions")
+def predict(n:functions.Config_donnees):
+    """
+    Obtenez un avis de prêt bancaire en utilisant les paramètres suivants:
+    - **age**:30,
+    - **job**:"services",
+    - **marital**:"married",
+    - **education**:"tertiary",
+    - **default**:"no",
+    - **balance**:1350,
+    - **housing**:"yes",
+    - **loan**:"no",
+    - **contact**:"cellular",
+    - **day**:16,
+    - **month**:"oct",
+    - **duration**:185,
+    - **campaign**:1,
+    - **pdays**:330,
+    - **previous**:1,
+    - **poutcome**:"other"
+    ### reponse est égale à 'yes' ou 'no'
+    ### proba correspond à la probabilité d'acceptation du dossier
+    """
     transform = functions.scal_lab(n)
     prediction= functions.predictions(transform)
     print("$$$$$$$$$$$$$$$$$$$$$$$$$",prediction)

@@ -1,6 +1,6 @@
 import joblib
 import numpy as np
-import pandas as pd
+from pydantic import BaseModel
 
 
 # # importer le modèle, les scaler et les labelencoder
@@ -8,11 +8,33 @@ enc = joblib.load("encoders")
 model = joblib.load("model")
 scal = joblib.load("scalers")
 
+class Config_donnees(BaseModel):
+    age:int
+    job:str
+    marital:str
+    education:str
+    default:str
+    balance:int
+    housing:str
+    loan:str
+    contact:str
+    day:int
+    month:str
+    duration:int
+    campaign:int
+    pdays:int
+    previous:int
+    poutcome:str
+
+class reponse_model(BaseModel):
+    reponse:str
+    proba:float
 
 
 def scal_lab(n:dict) ->list:
     """
-    Fonction servant à standardiser et labéliser les donner
+    Fonction servant à standardiser et labéliser les donnees
+    Sortie de type : [0.12,0.55,0.56....]
     """
     transformed_data=[]
     
@@ -47,6 +69,7 @@ def scal_lab(n:dict) ->list:
 def predictions(data:list) -> dict:
     """
     Fonction permettant la prédiction et l'inversement de labélisation
+    Sortie de type : {'reponse':'no','proba':99.99}
     """
     data = np.array([data])
     result = model.predict(data)
