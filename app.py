@@ -1,5 +1,5 @@
 import streamlit as st
-# from streamlit_echarts import st_echarts
+from streamlit_echarts import st_echarts
 import joblib
 # import requests
 
@@ -62,64 +62,64 @@ def formulaire():
         st.session_state.show_formulaire = False    
 
 def response():
-    if hasattr(st.session_state, "donnees_formulaire"):
-        st.write("Données soumises par l'utilisateur:")
-        st.write(st.session_state.donnees_formulaire)
-    else:
-        st.warning("Aucune donnée de formulaire soumise.")
-    # st.set_page_config(layout="wide")
-    # option = {
-    #     "tooltip": {
-    #         "formatter": '{a} <br/>{b} : {c}%'
-    #     },
-    #     "series": [{
-    #         "name": '进度',
-    #         "type": 'gauge',
-    #         "startAngle": 180,
-    #         "endAngle": 0,
-    #         "progress": {
-    #             "show": "true"
-    #         },
-    #         "radius":'100%', 
+    # if hasattr(st.session_state, "donnees_formulaire"):
+    #     st.write("Données soumises par l'utilisateur:")
+    #     st.write(st.session_state.donnees_formulaire)
+    # else:
+    #     st.warning("Aucune donnée de formulaire soumise.")
+    st.set_page_config(layout="wide")
+    option = {
+        "tooltip": {
+            "formatter": '{a} <br/>{b} : {c}%'
+        },
+        "series": [{
+            "name": '进度',
+            "type": 'gauge',
+            "startAngle": 180,
+            "endAngle": 0,
+            "progress": {
+                "show": "true"
+            },
+            "radius":'100%', 
 
-    #         "itemStyle": {
-    #             "color": '#58D9F9',
-    #             "shadowColor": 'rgba(0,138,255,0.45)',
-    #             "shadowBlur": 10,
-    #             "shadowOffsetX": 2,
-    #             "shadowOffsetY": 2,
-    #             "radius": '55%',
-    #         },
-    #         "progress": {
-    #             "show": "true",
-    #             "roundCap": "true",
-    #             "width": 15
-    #         },
-    #         "pointer": {
-    #             "length": '60%',
-    #             "width": 8,
-    #             "offsetCenter": [0, '5%']
-    #         },
-    #         "detail": {
-    #             "valueAnimation": "true",
-    #             "formatter": '{value}%',
-    #             "backgroundColor": '#58D9F9',
-    #             "borderColor": '#999',
-    #             "borderWidth": 4,
-    #             "width": '60%',
-    #             "lineHeight": 20,
-    #             "height": 20,
-    #             "borderRadius": 188,
-    #             "offsetCenter": [0, '40%'],
-    #             "valueAnimation": "true",
-    #         },
-    #         "data": [{
-    #             "value": 66.66,
-    #             "name": '百分比'
-    #         }]
-    #     }]
-    # };
-    # st_echarts(options=option)
+            "itemStyle": {
+                "color": '#58D9F9',
+                "shadowColor": 'rgba(0,138,255,0.45)',
+                "shadowBlur": 10,
+                "shadowOffsetX": 2,
+                "shadowOffsetY": 2,
+                "radius": '55%',
+            },
+            "progress": {
+                "show": "true",
+                "roundCap": "true",
+                "width": 15
+            },
+            "pointer": {
+                "length": '60%',
+                "width": 8,
+                "offsetCenter": [0, '5%']
+            },
+            "detail": {
+                "valueAnimation": "true",
+                "formatter": '{value}%',
+                "backgroundColor": '#58D9F9',
+                "borderColor": '#999',
+                "borderWidth": 4,
+                "width": '60%',
+                "lineHeight": 20,
+                "height": 20,
+                "borderRadius": 188,
+                "offsetCenter": [0, '40%'],
+                "valueAnimation": "true",
+            },
+            "data": [{
+                "value": 66.66,
+                "name": '百分比'
+            }]
+        }]
+    };
+    st_echarts(options=option)
     
     
 # Définir la disposition de l'application
