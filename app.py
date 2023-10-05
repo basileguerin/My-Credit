@@ -1,4 +1,5 @@
 import streamlit as st
+# from streamlit_echarts import st_echarts
 import joblib
 # import requests
 
@@ -30,13 +31,11 @@ def formulaire():
     # Input avec plusieurs options
     contact = st.selectbox("type de communication du contact",  values_list['contact'].classes_.tolist())
 
-
     # Input de type number
     date = st.number_input("Dernier jour du contact du mois", min_value=0, max_value=31, step=1)
 
     # Input avec plusieurs options
     month = st.selectbox("type de communication du contact",  values_list['month'].classes_.tolist())
-
 
     # Input de type number
     duration = st.number_input("Durée du dernier contact, en secondes", min_value=0, max_value=5000, step=1)
@@ -64,10 +63,11 @@ def formulaire():
 
 def response():
     if hasattr(st.session_state, "donnees_formulaire"):
-        st.write("Données soumises:")
+        st.write("Données soumises par l'utilisateur:")
         st.write(st.session_state.donnees_formulaire)
     else:
         st.warning("Aucune donnée de formulaire soumise.")
+    
     
 # Définir la disposition de l'application
 def main():
