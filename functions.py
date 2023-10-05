@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_echarts import st_echarts
 import joblib
+import requests
 
 def formulaire():
     # récupération du dictionnaire de labelencoders
@@ -44,21 +45,18 @@ def formulaire():
 
     with col2bis:
         # Bouton pour soumettre le formulaire
-        if st.button("Soumettre"):        
-            data_json = {"age": age, "job": job, "marital": marital, "education": education, "default": default, 
-            "balance": balance, "housing": housing, "loan": loan, "contact": contact, "day": day, "month": month,
-            "duration": duration, "compaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}
+        if st.button("Soumettre"):  
+            data_json = {"age": age, "job": job, "marital": marital, "education": education, "default": 'yes' if default else 'no', 
+            "balance": balance, "housing": 'yes' if housing else 'no', "loan": 'yes' if loan else 'no', "contact": contact, "day": day, "month": month,
+            "duration": duration, "campaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}
 
             st.session_state.donnees_formulaire = data_json
 
-            # response = requests.post('http://127.0.0.0.0:8000/predict', json= data_json)
-            # return response.json()
-
-            response = {'reponse': 'no', 'proba': '29.78'}
-            st.session_state.response = response
-
+            response = requests.post('https://api-isen-g1-46331383ef49.herokuapp.com/predict', json= data_json)
+            st.session_state.response = response.json()
+ 
             # Rediriger vers la page de réponse en masquant le formulaire
-            st.session_state.show_formulaire = False  
+            st.session_state.show_formulaire = False 
 
             st.rerun()
         
@@ -121,7 +119,7 @@ def response():
                 },
                 "data": [{
                     #récupère la valeur de la réponse stockée dans l'état pour l'afficher
-                    "value": float(st.session_state['response']['proba']),
+                    "value": st.session_state['response']['proba'],
                     "name": "Probabilité d'acceptation"
                 }]
             }]
