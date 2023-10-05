@@ -8,7 +8,6 @@ enc = joblib.load("encoders")
 model = joblib.load("model")
 scal = joblib.load("scalers")
 
-#
 
 
 def scal_lab(n:dict) ->list:
@@ -51,6 +50,7 @@ def predictions(data:list) -> dict:
     """
     data = np.array([data])
     result = model.predict(data)
+    proba = model.predict_proba(data)
     pred = enc['y'].inverse_transform(result)[0]
-    return {'reponse':pred}
+    return {'reponse':pred,'proba':round(proba[0][1]*100,2)}
 
