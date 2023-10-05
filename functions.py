@@ -134,7 +134,7 @@ def response():
         with col2_df:    
             st.write('')
  
-            # génération du graphique à partir d'un dataframe
+            # génération du graphique à partir d'un dataframe créer à partir de la réponse stocké dans st.session_state
             st.write('<div style="text-align:center; font-size: 25px">Importance des features dans la prédiction</div>', unsafe_allow_html=True)
             df = pd.DataFrame({'keys':st.session_state['response']['importance'][0], 'values':st.session_state['response']['importance'][1]})    
             st.bar_chart(df.set_index('keys'))
