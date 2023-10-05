@@ -51,9 +51,9 @@ def formulaire():
         data_json = {"age": age, "job": job, "marital": marital, "education": education, "default": default, 
         "balance": balance, "housing": housing, "loan": loan, "contact": contact, "day": day, "month": month,
         "duration": duration, "compaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}
+
         st.session_state.donnees_formulaire = data_json
 
-        # st.session_state.page = "Response" 
         # st.write(data_json)
         # response = requests.post('http://127.0.0.0.0:8000/predict', json= data_json)
         # return response.json()
