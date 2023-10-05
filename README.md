@@ -1,6 +1,6 @@
 # Branche : Back-end
 ## Construction de l'api de l'application
-!["Prédictions dans l'API"](..\images\result.PNG)
+!["Prédictions dans l'API"](.\images\result.PNG)
 ### Pour réaliser cette API nous avons utilisé :
 - **FastAPI** : Un framework servant pour la création d'api avec une documentation simplifiée
 - **uvicorn** : Une libraire servant de serveur
@@ -15,7 +15,6 @@
 
 ## Captures d'écrans:
 ### Documentation de l'api
-!["Documentation de l'api"](..\images\api.PNG)
+!["Documentation de l'api"](.\images\api.PNG)
 ### Page d'acceuil de l'application
-!["Page d'acceuil de l'api"](..\images\home.PNG)
-< img src="C:\Users\utilisateur\Documents\GitHub\My-Credit\images\home.PNG" >
+!["Page d'acceuil de l'api"](.\images\home.PNG)
