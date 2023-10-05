@@ -30,6 +30,7 @@ def predict(n:functions.Config_donnees):
     - **pdays**:330,
     - **previous**:1,
     - **poutcome**:"other"
+    ## La réponse est un json de type json : {'reponse':'no','proba':0.99,'importance':[['age',...'poutcome'][0.12,...0.03]]}
     ### reponse est égale à 'yes' ou 'no'
     ### proba correspond à la probabilité d'acceptation du dossier
     ### importance est une liste avec une liste des varibales avec la liste du pourcentage d'importance
