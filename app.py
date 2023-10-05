@@ -34,12 +34,11 @@ def predict(n:functions.Config_donnees):
     - **poutcome**:"other"
     ### reponse est égale à 'yes' ou 'no'
     ### proba correspond à la probabilité d'acceptation du dossier
-    ### importance correspond aux 3 variables avec leur pourcentages qui ont le plus d'importance dans la décision du modèle
+    ### importance est une liste avec une liste des varibales avec la liste du pourcentage d'importance
     """
     transform = functions.scal_lab(n)
     prediction= functions.predictions(transform)
-    print("$$$$$$$$$$$$$$$$$$$$$$$$$",prediction)
     return prediction
 
 if __name__=='__main__':
-    uvicorn.run(app, host='127.0.0.1', port=8000)
+    uvicorn.run(app, host='127.0.0.1', port=8001)

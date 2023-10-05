@@ -64,7 +64,6 @@ def scal_lab(n:dict) ->list:
     transformed_data.append(scal['previous'].transform(np.array([n.previous]).reshape(-1, 1))[0][0])
     poutcome=enc['poutcome'].transform([n.poutcome])[0]
     transformed_data.append(scal['poutcome'].transform(np.array([poutcome]).reshape(-1,1))[0][0])
-    print("!!!!!!!!!!!!!!!!!!!!!!", transformed_data)
     return transformed_data
 
 def predictions(data:list) -> dict:
@@ -82,12 +81,8 @@ def predictions(data:list) -> dict:
                  "housing", "loan", "contact", "day", "month", "duration",
                  "camapaign", "pdays", "previous", "poutcome"]
     probs = model.feature_importances_
-    top_indices = np.argsort(probs)[-3:]
-    top_features = [liste_features[i] for i in top_indices]
-    liste_importances=[]
-    for i, feature in enumerate(top_features):
-        liste_importances.append([feature,round(probs[top_indices[-i-1]] * 100, 2)])
+    probs_list=[float(i) for i in probs]
     return {'reponse':pred,
             'proba':round(proba[0][1]*100,2),
-            'importance':liste_importances}
+            'importance':[liste_features,probs_list]}
 
