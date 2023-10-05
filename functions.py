@@ -27,21 +27,23 @@ def formulaire():
         loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
         contact = st.selectbox("type de communication du contact",  values_list['contact'].classes_.tolist())
         day = st.number_input("Dernier jour du contact du mois", min_value=1, max_value=31, step=1)
-        month = st.selectbox("type de communication du contact",  values_list['month'].classes_.tolist())
-        duration = st.number_input("Durée du dernier contact, en secondes", min_value=0, max_value=4918, step=1)        
+        month = st.selectbox("type de communication du contact",  values_list['month'].classes_.tolist())              
 
     # Colonne 3
     with col3:       
+        duration = st.number_input("Durée du dernier contact, en secondes", min_value=0, max_value=4918, step=1)  
         campaign = st.number_input('Nombre de contacts effectués pendant cette campagne', min_value=1, max_value=63, step=1)
         pdays = st.number_input("Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente", min_value=-1, max_value= 871 ,  step=1)
         previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client', min_value=0, max_value= 275, step=1)
         poutcome = st.selectbox('résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
 
-        st.write('')
-        st.write('')
-        st.write('')
+    col1bis, col2bis, col3bis = st.columns([0.45, 0.1, 0.45])
 
-         # Bouton pour soumettre le formulaire
+    with col1bis:
+            st.write("")
+
+    with col2bis:
+        # Bouton pour soumettre le formulaire
         if st.button("Soumettre"):        
             data_json = {"age": age, "job": job, "marital": marital, "education": education, "default": default, 
             "balance": balance, "housing": housing, "loan": loan, "contact": contact, "day": day, "month": month,
@@ -60,7 +62,9 @@ def formulaire():
             st.session_state.show_formulaire = False  
 
             st.experimental_rerun()
-
+        
+    with col3bis:
+            st.write('')
      
 
 def response():
@@ -129,7 +133,17 @@ def response():
         st_echarts(options=option)
         st.write(f'<div style="text-align:center; font-size: 30px">Réponse: {"Pas accepté" if st.session_state["response"]["reponse"] == "no" else "Accepté"}</div>', unsafe_allow_html=True)
         
-        # recharge la page pour une nouvelle prédiction
-        if st.button("Recharger la page"):
-            st.session_state.show_formulaire = True
-            st.experimental_rerun()
+            # Divisez la mise en page en deux colonnes
+        col1, col2, col3 = st.columns([0.45, 0.1, 0.45])
+
+        with col1:
+             st.write('')
+
+        with col2:
+            # recharge la page pour une nouvelle prédiction
+            if st.button("Recharger la page"):
+                st.session_state.show_formulaire = True
+                st.experimental_rerun()
+
+        with col3:
+             st.write('')
