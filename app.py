@@ -6,8 +6,7 @@ import functions
 descritpion ="""
     Obtenez un avis de prêt bancaire en utilisant les paramètres suivants:
     - age: int
-    - job: str ['admin.' 'blue-collar' 'entrepreneur' 'housemaid' 'management' 'retired'
- 'self-employed' 'services' 'student' 'technician' 'unemployed' 'unknown'] 
+    - job: str ['admin.' 'blue-collar' 'entrepreneur' 'housemaid' 'management' 'retired' 'self-employed' 'services' 'student' 'technician' 'unemployed' 'unknown'] 
     - marital: str ['divorced' 'married' 'single'] 
     - education: str ['primary' 'secondary' 'tertiary' 'unknown']
     - default: str ['no' 'yes'] 
