@@ -12,3 +12,4 @@ Dans le contrat il est spécifié que le modèle doit atteindre une accuracy de 
 
 - Application : [Streamlit](https://my-credit-g7xraeyumygdlnn6ch9zu2.streamlit.app/)
 - API : [Fast API](https://api-isen-g1-46331383ef49.herokuapp.com/docs)
+- Modèle : [MLFLow](https://isen-mlflow-fae8e0578f2f.herokuapp.com/#/experiments/29/runs/1c4629fd398a43ae9a1c5e5d26e166ab)
