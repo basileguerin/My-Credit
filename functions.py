@@ -7,8 +7,14 @@ import boto3
 
 # # importer le modèle, les scaler et les labelencoder
 enc = joblib.load("encoders")
-# model = joblib.load("model")
 scal = joblib.load("scalers")
+
+# Recupértation du modèle sur MlFlow
+os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
+os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
+mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
+logged_model = 'runs:/d9d5101dedb34179b54ada9b666b81cd/My-Credit'
+model = mlflow.sklearn.load_model(logged_model)
 
 # Configuration d'une classe BaseModel pour s'assurer que les 
 # données correspondent bien avec ce qui est attendu
@@ -76,13 +82,6 @@ def predictions(data:list) -> dict:
     Fonction permettant la prédiction et l'inversement de labélisation
     Sortie de type : {'reponse':'no','proba':99.99,'importance':[['age',...'poutcome],[0.12,...,0.005]]}
     """
-
-    # Recupértation du modèle sur MlFlow
-    os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
-    os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
-    mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
-    logged_model = 'runs:/d9d5101dedb34179b54ada9b666b81cd/My-Credit'
-    model = mlflow.sklearn.load_model(logged_model)
 
     # Prédiction en utilisant le modèle
     data = np.array([data])
