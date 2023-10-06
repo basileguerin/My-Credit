@@ -4,11 +4,10 @@ import requests
 import pandas as pd
 
 
-
 def formulaire(values: dict) -> bool:
     '''
     Formulaire qui recueille les données nécessaires pour la prédiction.  
-    '''    
+    '''
 
     # Titre de la page
     st.write("<h1 style='text-align: center; margin: 0 0 25px 0'>Prédiction d'acceptation de crédit</h1>",
@@ -27,11 +26,13 @@ def formulaire(values: dict) -> bool:
         # génération des options à partir du dictionnaire extrait de encoders
         job = st.selectbox("Sélectionnez l'emploi",
                            values['job'])
-        marital = st.selectbox("Sélectionnez l'état civil",
-                               values['marital'],
-                               help=' "divorced" signifie divorcé ou veuf')
-        education = st.selectbox("Sélectionnez le niveau d'étude",
-                                 values['education'])
+        marital = st.radio("Sélectionnez l'état civil",
+                           horizontal=True,
+                           options=values['marital'],
+                           help=' "divorced" signifie divorcé ou veuf')
+        education = st.radio("Sélectionnez le niveau d'étude",
+                             horizontal=True,
+                             options=values['education'])
         balance = st.number_input("Saisissez votre solde",
                                   step=1,
                                   value=0)
@@ -39,9 +40,9 @@ def formulaire(values: dict) -> bool:
     # Colonne 2
     with col2:
         # input qui renvoie True si coché, sinon False par défaut
-        default = st.checkbox("Le crédit est-il en défaut ?")
-        housing = st.checkbox("Un prêt logement a-t-il été contracté ?")
-        loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
+        default = st.toggle("Le crédit est-il en défaut ?")
+        housing = st.toggle("Un prêt logement a-t-il été contracté ?")
+        loan = st.toggle('Un prêt personnel a-t-il été contracté ?')
         contact = st.selectbox("Type de communication du contact ?",
                                values['contact'])
         day = st.slider("Dernier jour du contact du mois ?",
@@ -59,19 +60,20 @@ def formulaire(values: dict) -> bool:
         campaign = st.number_input('Nombre de contacts effectués pendant cette campagne',
                                    step=1,
                                    value=1)
-        pdays = st.number_input("Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente",                               
+        pdays = st.number_input("Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente",
                                 step=1,
                                 value=0,
                                 help="-1 signifie que le client n'a pas été contacté auparavant")
-        previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client',                                   
+        previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client',
                                    step=1,
                                    value=0)
-        poutcome = st.selectbox('Résultat de la campagne marketing précédente',
-                                values['poutcome'])
+        poutcome = st.radio('Résultat de la campagne marketing précédente',
+                            horizontal=True,
+                            options=values['poutcome'])
 
     # *******Deuxième partie de la page
     # permet de centrer le bouton au milieu de la page
-    col1bis, col2bis, col3bis = st.columns([0.45, 0.1, 0.45])
+    col1bis, col2bis, col3bis = st.columns([0.38, 0.24, 0.38])
 
     # colonne 1 (vide)
     with col1bis:
@@ -81,25 +83,26 @@ def formulaire(values: dict) -> bool:
     with col2bis:
         # création du dictionnaire à envoyer dans la réponse
         data_json = {
-                    "age": age,
-                    "job": job,
-                    "marital": marital,
-                    "education": education,
-                    # modifie le boolean en réponse conforme pour l'API
-                    "default": correction_param(default),
-                    "balance": balance,
-                    "housing": correction_param(housing),
-                    "loan": correction_param(loan),
-                    "contact": contact,
-                    "day": day,
-                    "month": month,
-                    "duration": duration,
-                    "campaign": campaign,
-                    "pdays": pdays,
-                    "previous": previous,
-                    "poutcome": poutcome
-                }
-        conditions_values(balance, duration, campaign, pdays, previous, values, data_json)  
+            "age": age,
+            "job": job,
+            "marital": marital,
+            "education": education,
+            # modifie le boolean en réponse conforme pour l'API
+            "default": correction_param(default),
+            "balance": balance,
+            "housing": correction_param(housing),
+            "loan": correction_param(loan),
+            "contact": contact,
+            "day": day,
+            "month": month,
+            "duration": duration,
+            "campaign": campaign,
+            "pdays": pdays,
+            "previous": previous,
+            "poutcome": poutcome
+        }
+        conditions_values(balance, duration, campaign,
+                          pdays, previous, values, data_json)
 
     # colonne 3 (vide)
     with col3bis:
@@ -246,6 +249,7 @@ def correction_param(param: bool) -> str:
     """
     return 'yes' if param else 'no'
 
+
 def conditions_values(balance: int, duration: int, campaign: int, pdays: int, previous: int, values: dict, data_json: dict) -> bool:
     """
     Bloque la validation si une valeur d'un des paramètres se trouve en dehors des valeurs min et max
@@ -279,10 +283,10 @@ def conditions_values(balance: int, duration: int, campaign: int, pdays: int, pr
             st.write(
                 f'La valeur previous doit être comprise entre {values["previous"]["min"]} et {values["previous"]["max"]}')
         return True
-    
+
     else:
-    # Bouton pour soumettre le formulaire
-        if st.button("Soumettre"):           
+        # Bouton pour soumettre le formulaire
+        if st.button("Soumettre"):
 
             # stockage de la réponse de l'API dans session_state
             st.session_state.formulaire = data_json
