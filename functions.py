@@ -22,17 +22,23 @@ def formulaire() -> bool:
 
     # Colonne 1
     with col1:
-        age = st.slider("Sélectionnez l'âge", min_value=18,
-                        max_value=95, step=1, help='toto')
+        age = st.slider("Sélectionnez l'âge",
+                        min_value=18,
+                        max_value=95,
+                        step=1)
         # génération des options à partir du dictionnaire extrait de encoders
         job = st.selectbox("Sélectionnez l'emploi",
                            values_list['job'].classes_.tolist())
         marital = st.selectbox("Sélectionnez l'état civil",
-                               values_list['marital'].classes_.tolist())
-        education = st.selectbox(
-            "Sélectionnez le niveau d'étude", values_list['education'].classes_.tolist())
-        balance = st.number_input(
-            "Saisissez votre solde", min_value=-8019, max_value=1021270, step=1, value=0)
+                               values_list['marital'].classes_.tolist(),
+                               help=' "divorced" signifie divorcé ou veuf')
+        education = st.selectbox("Sélectionnez le niveau d'étude",
+                                 values_list['education'].classes_.tolist())
+        balance = st.number_input("Saisissez votre solde",
+                                  min_value=-8019,
+                                  max_value=1021270,
+                                  step=1,
+                                  value=0)
 
     # Colonne 2
     with col2:
@@ -40,25 +46,36 @@ def formulaire() -> bool:
         default = st.checkbox("Le crédit est-il en défaut ?")
         housing = st.checkbox("Un prêt logement a-t-il été contracté ?")
         loan = st.checkbox('Un prêt personnel a-t-il été contracté ?')
-        contact = st.selectbox(
-            "Type de communication du contact ?",  values_list['contact'].classes_.tolist())
+        contact = st.selectbox("Type de communication du contact ?",
+                               values_list['contact'].classes_.tolist())
         day = st.slider("Dernier jour du contact du mois ?",
-                        min_value=1, max_value=31, step=1)
+                        min_value=1,
+                        max_value=31,
+                        step=1)
         month = st.selectbox("Dernier mois de contact de l'année ?",
                              values_list['month'].classes_.tolist())
 
     # Colonne 3
     with col3:
-        duration = st.number_input(
-            "Durée du dernier contact, en secondes", min_value=0, max_value=4918, step=1)
-        campaign = st.number_input(
-            'Nombre de contacts effectués pendant cette campagne', min_value=1, max_value=63, step=1)
-        pdays = st.number_input(
-            "Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente", min_value=-1, max_value=871,  step=1)
-        previous = st.number_input(
-            'Nombre de contacts effectués avant cette campagne et pour ce client', min_value=0, max_value=275, step=1)
-        poutcome = st.selectbox(
-            'Résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
+        duration = st.number_input("Durée du dernier contact, en secondes",
+                                   min_value=0,
+                                   max_value=4918,
+                                   step=1)
+        campaign = st.number_input('Nombre de contacts effectués pendant cette campagne',
+                                   min_value=1,
+                                   max_value=63,
+                                   step=1)
+        pdays = st.number_input("Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente",
+                                min_value=-1,
+                                max_value=871,
+                                step=1,
+                                help="-1 signifie que le client n'a pas été contacté auparavant")
+        previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client',
+                                   min_value=0,
+                                   max_value=275,
+                                   step=1)
+        poutcome = st.selectbox('Résultat de la campagne marketing précédente',
+                                values_list['poutcome'].classes_.tolist())
 
     # *******Deuxième partie de la page
     # permet de centrer le bouton au milieu de la page
