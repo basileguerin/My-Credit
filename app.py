@@ -5,22 +5,23 @@ import functions
 # Config apparence API
 descritpion ="""
     Obtenez un avis de prêt bancaire en utilisant les paramètres suivants:
-    - **age**:30,
-    - **job**:"services",
-    - **marital**:"married",
-    - **education**:"tertiary",
-    - **default**:"no",
-    - **balance**:1350,
-    - **housing**:"yes",
-    - **loan**:"no",
-    - **contact**:"cellular",
-    - **day**:16,
-    - **month**:"oct",
-    - **duration**:185,
-    - **campaign**:1,
-    - **pdays**:330,
-    - **previous**:1,
-    - **poutcome**:"other"
+    - age: int
+    - job: str ['admin.' 'blue-collar' 'entrepreneur' 'housemaid' 'management' 'retired'
+ 'self-employed' 'services' 'student' 'technician' 'unemployed' 'unknown'] 
+    - marital: str ['divorced' 'married' 'single'] 
+    - education: str ['primary' 'secondary' 'tertiary' 'unknown']
+    - default: str ['no' 'yes'] 
+    - balance: int 
+    - housing: str ['no' 'yes'] 
+    - loan: str ['no' 'yes']
+    - contact: str ['cellular' 'telephone' 'unknown'] 
+    - day: int 
+    - month: str ['apr' 'aug' 'dec' 'feb' 'jan' 'jul' 'jun' 'mar' 'may' 'nov' 'oct' 'sep'] 
+    - duration: int
+    - campaign: int
+    - pdays: int 
+    - previous: int
+    - poutcome: str ['failure' 'other' 'success' 'unknown']
     """
 app = FastAPI(
     title="API prédictions accords bancaire",
