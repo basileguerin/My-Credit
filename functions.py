@@ -5,13 +5,16 @@ import requests
 import pandas as pd
 
 def formulaire():
+    '''
+    Formulaire qui recueille les données nécessaires pour la prédiction.
+    '''
     # récupération du dictionnaire de labelencoders
     values_list = joblib.load('encoders')
 
     # Titre de la page
     st.write("<h1 style='text-align: center; margin: 0 0 25px 0'>Prédiction d'acceptation de crédit</h1>", unsafe_allow_html=True)
 
-    # Divisez la mise en page en deux colonnes
+    # Gère l'affichage du formulaire en trois colonnes
     col1, col2, col3 = st.columns(3)
 
     # Colonne 1
@@ -39,6 +42,7 @@ def formulaire():
         previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client', min_value=0, max_value= 275, step=1)
         poutcome = st.selectbox('Résultat de la campagne marketing précédente', values_list['poutcome'].classes_.tolist())
 
+    # permet de centrer le bouton au milieu de la page
     col1bis, col2bis, col3bis = st.columns([0.45, 0.1, 0.45])
 
     with col1bis:
@@ -51,21 +55,22 @@ def formulaire():
             "balance": balance, "housing": 'yes' if housing else 'no', "loan": 'yes' if loan else 'no', "contact": contact, "day": day, "month": month,
             "duration": duration, "campaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}
 
-            st.session_state.donnees_formulaire = data_json     
-
-            response = requests.post('https://api-isen-g1-46331383ef49.herokuapp.com/predict', json= data_json)
-            st.session_state.response = response.json()
+            # stockage du formulaire et de la réponse de l'api dans session_state
+            st.session_state.donnees_formulaire = data_json                        
+            st.session_state.response = api_predict(data_json)
  
             # Rediriger vers la page de réponse en masquant le formulaire
             st.session_state.show_formulaire = False 
-
             st.rerun()
         
     with col3bis:
             st.write('')
      
 
-def response():        
+def response():   
+        """
+        Affichage de la réponse une fois la prédiction réalisée
+        """     
         # affichage du graphique    
         option = {
             "tooltip": {
@@ -120,12 +125,11 @@ def response():
             }]
         };
 
-        # Titre de la page
         st.write("<h1 style='text-align: center; margin: 0 0 25px 0'>Réponse de l'acceptation de crédit</h1>", unsafe_allow_html=True)
         st_echarts(options=option)
         st.write(f'<div style="text-align:center; font-size: 30px">Réponse: {"Pas accepté" if st.session_state["response"]["reponse"] == "no" else "Accepté"}</div>', unsafe_allow_html=True)
 
-        # Divisez la mise en page en trois colonnes
+        # Permet de centrer les différents widgets au centre de la page
         col1_df, col2_df, col3_df = st.columns([0.18, 0.64, 0.18])
 
         with col1_df:
@@ -134,7 +138,7 @@ def response():
         with col2_df:    
             st.write('')
  
-            # génération du graphique à partir d'un dataframe créer à partir de la réponse stocké dans st.session_state
+            # génération du graphique à partir de la réponse stocké dans st.session_state incorporé dans un dataframe
             st.write('<div style="text-align:center; font-size: 25px">Importance des features dans la prédiction</div>', unsafe_allow_html=True)
             df = pd.DataFrame({'keys':st.session_state['response']['importance'][0], 'values':st.session_state['response']['importance'][1]})    
             st.bar_chart(df.set_index('keys'))
@@ -142,7 +146,7 @@ def response():
         with col3_df:
              st.write('')
 
-        # Divisez la mise en page en trois colonnes
+        # Permet de centrer le bouton
         col1, col2, col3 = st.columns([0.45, 0.1, 0.45])
 
         with col1:
@@ -150,9 +154,14 @@ def response():
 
         with col2:
             # recharge la page pour une nouvelle prédiction
-            if st.button("Recharger la page"):
+            if st.button("Faire une nouvelle prédiction"):
                 st.session_state.show_formulaire = True
                 st.rerun()
 
         with col3:
              st.write('')
+
+def api_predict(data_json: dict) -> dict:
+     """appel de l'API pour faire la prédiction"""
+     response = requests.post('https://api-isen-g1-46331383ef49.herokuapp.com/predict', json= data_json)
+     return response.json()
