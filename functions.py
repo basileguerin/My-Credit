@@ -81,7 +81,7 @@ def predictions(data:list) -> dict:
     os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
     os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
     mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
-    logged_model = 'runs:/cc8f509bfbaa40c78cfafb9c46708b96/My-Credit'
+    logged_model = 'runs:/d9d5101dedb34179b54ada9b666b81cd/My-Credit'
     model = mlflow.sklearn.load_model(logged_model)
 
     # Prédiction en utilisant le modèle
