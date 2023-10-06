@@ -76,13 +76,15 @@ def predictions(data:list) -> dict:
     Fonction permettant la prédiction et l'inversement de labélisation
     Sortie de type : {'reponse':'no','proba':99.99,'importance':[['age',...'poutcome],[0.12,...,0.005]]}
     """
+
+    # Recupértation du modèle sur MlFlow
     os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
     os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
     mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
     logged_model = 'runs:/cc8f509bfbaa40c78cfafb9c46708b96/My-Credit'
-    # Load model as a PyFuncModel.
     model = mlflow.sklearn.load_model(logged_model)
 
+    # Prédiction en utilisant le modèle
     data = np.array([data])
     result = model.predict(data)
     proba = model.predict_proba(data)
@@ -94,6 +96,9 @@ def predictions(data:list) -> dict:
                  "camapaign", "pdays", "previous", "poutcome"]
     probs = model.feature_importances_
     probs_list=[float(i) for i in probs]
+
+    # Renvoi du dictionnaire contenant la prédiction, la probabilité d'un oui
+    # et une liste avec la liste des variables et la liste des probabilités
     return {'reponse':pred,
             'proba':round(proba[0][1]*100,2),
             'importance':[liste_features,probs_list]}

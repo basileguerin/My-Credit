@@ -2,17 +2,8 @@ from fastapi import FastAPI
 import uvicorn
 import functions
 
-app = FastAPI(
-    title="API prédictions accords bancaire",
-    descrtiption="""
-Descritption de l'api ici !!!
-"""
-)
-
-# Définir une route POST pour la commande
-@app.post("/predict", response_model=functions.reponse_model, summary="Prédictions")
-def predict(n:functions.Config_donnees):
-    """
+# Config apparence API
+descritpion ="""
     Obtenez un avis de prêt bancaire en utilisant les paramètres suivants:
     - **age**:30,
     - **job**:"services",
@@ -37,9 +28,21 @@ def predict(n:functions.Config_donnees):
     - ### la liste des varibales 
     - ### la liste du pourcentage d'importance
     """
+app = FastAPI(
+    title="API prédictions accords bancaire",
+    summary="Api développée par Kevin LE GRAND en colaboration avec Basile GUERIN et Mickeal MARCOTTE",
+    description=descritpion
+)
 
+
+# Définir une route POST pour la commande
+@app.post("/predict", response_model=functions.reponse_model, summary="Prédictions")
+def predict(n:functions.Config_donnees):
+    # Appel de la fonction servant la encoder et standardiser
     transform = functions.scal_lab(n)
+    # Appel de la fonction servant à réaliser les prédictions
     prediction= functions.predictions(transform)
+    # Réponse au format json
     return prediction
 
 
