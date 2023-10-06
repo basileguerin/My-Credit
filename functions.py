@@ -7,7 +7,7 @@ import boto3
 
 # # importer le modèle, les scaler et les labelencoder
 enc = joblib.load("encoders")
-model = joblib.load("model")
+# model = joblib.load("model")
 scal = joblib.load("scalers")
 
 # Configuration d'une classe BaseModel pour s'assurer que les 
@@ -78,11 +78,11 @@ def predictions(data:list) -> dict:
     """
 
     # Recupértation du modèle sur MlFlow
-    # os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
-    # os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
-    # mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
-    # logged_model = 'runs:/cc8f509bfbaa40c78cfafb9c46708b96/My-Credit'
-    # model = mlflow.sklearn.load_model(logged_model)
+    os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
+    os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
+    mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
+    logged_model = 'runs:/cc8f509bfbaa40c78cfafb9c46708b96/My-Credit'
+    model = mlflow.sklearn.load_model(logged_model)
 
     # Prédiction en utilisant le modèle
     data = np.array([data])
