@@ -43,8 +43,9 @@ def formulaire(values: dict) -> bool:
         default = st.toggle("Le crédit est-il en défaut ?")
         housing = st.toggle("Un prêt logement a-t-il été contracté ?")
         loan = st.toggle('Un prêt personnel a-t-il été contracté ?')
-        contact = st.selectbox("Type de communication du contact ?",
-                               values['contact'])
+        contact = st.radio("Type de communication du contact ?",
+                           horizontal=True,
+                           options=values['contact'])
         day = st.slider("Dernier jour du contact du mois ?",
                         min_value=values['day']['min'],
                         max_value=values['day']['max'],
@@ -62,7 +63,7 @@ def formulaire(values: dict) -> bool:
                                    value=1)
         pdays = st.number_input("Nombre de jours écoulés après que le client a été contacté pour la dernière fois lors d'une campagne précédente",
                                 step=1,
-                                value=0,
+                                value=-1,
                                 help="-1 signifie que le client n'a pas été contacté auparavant")
         previous = st.number_input('Nombre de contacts effectués avant cette campagne et pour ce client',
                                    step=1,
