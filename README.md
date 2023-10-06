@@ -14,3 +14,4 @@ Un graphique présente les features ayant le plus d'importance.
 ## Liens
 lien vers streamlit : https://my-credit-g7xraeyumygdlnn6ch9zu2.streamlit.app/ <br>
 lien vers l'API: https://api-isen-g1-46331383ef49.herokuapp.com/docs <br>
+lien vers MLFlow: https://isen-mlflow-fae8e0578f2f.herokuapp.com/#/experiments/29/runs/1c4629fd398a43ae9a1c5e5d26e166ab
