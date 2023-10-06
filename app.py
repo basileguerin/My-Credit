@@ -21,12 +21,6 @@ descritpion ="""
     - **pdays**:330,
     - **previous**:1,
     - **poutcome**:"other"
-    ## La réponse est de type json : {'reponse':'no','proba':0.99,'importance':[['age',...'poutcome'][0.12,...0.03]]}
-    ### reponse est égale à 'yes' ou 'no'
-    ### proba correspond à la probabilité d'acceptation du dossier
-    ### importance comporte deux liste :
-    - ### la liste des varibales 
-    - ### la liste du pourcentage d'importance
     """
 app = FastAPI(
     title="API prédictions accords bancaire",
@@ -38,6 +32,14 @@ app = FastAPI(
 # Définir une route POST pour la commande
 @app.post("/predict", response_model=functions.reponse_model, summary="Prédictions")
 def predict(n:functions.Config_donnees):
+    """
+    ## La réponse est de type json : {'reponse':'no','proba':0.99,'importance':[['age',...'poutcome'][0.12,...0.03]]}
+    ### reponse est égale à 'yes' ou 'no'
+    ### proba correspond à la probabilité d'acceptation du dossier
+    ### importance comporte deux liste :
+    - ### la liste des varibales 
+    - ### la liste du pourcentage d'importance
+    """
     # Appel de la fonction servant la encoder et standardiser
     transform = functions.scal_lab(n)
     # Appel de la fonction servant à réaliser les prédictions
