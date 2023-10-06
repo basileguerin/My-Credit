@@ -37,12 +37,11 @@ def predict(n:functions.Config_donnees):
     - ### la liste des varibales 
     - ### la liste du pourcentage d'importance
     """
-    try:
-        transform = functions.scal_lab(n)
-        prediction= functions.predictions(transform)
-        return prediction
-    except Exception as e:
-        return f"Une erreur inattendue s'est produite : {e}"
+
+    transform = functions.scal_lab(n)
+    prediction= functions.predictions(transform)
+    return prediction
+
 
 if __name__=='__main__':
     uvicorn.run(app, host='127.0.0.1', port=8001)

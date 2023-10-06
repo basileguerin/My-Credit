@@ -1,13 +1,17 @@
 import joblib
 import numpy as np
 from pydantic import BaseModel
-
+import os
+import mlflow
+import boto3
 
 # # importer le modèle, les scaler et les labelencoder
 enc = joblib.load("encoders")
-model = joblib.load("model")
+# model = joblib.load("model")
 scal = joblib.load("scalers")
 
+# Configuration d'une classe BaseModel pour s'assurer que les 
+# données correspondent bien avec ce qui est attendu
 class Config_donnees(BaseModel):
     age:int
     job:str
@@ -35,6 +39,7 @@ class reponse_model(BaseModel):
 def scal_lab(n:dict) ->list:
     """
     Fonction servant à standardiser et labéliser les donnees
+    Entrée json
     Sortie de type : [0.12,0.55,0.56....]
     """
     transformed_data=[]
@@ -69,8 +74,15 @@ def scal_lab(n:dict) ->list:
 def predictions(data:list) -> dict:
     """
     Fonction permettant la prédiction et l'inversement de labélisation
-    Sortie de type : {'reponse':'no','proba':99.99}
+    Sortie de type : {'reponse':'no','proba':99.99,'importance':[['age',...'poutcome],[0.12,...,0.005]]}
     """
+    os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
+    os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
+    mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
+    logged_model = 'runs:/cc8f509bfbaa40c78cfafb9c46708b96/My-Credit'
+    # Load model as a PyFuncModel.
+    model = mlflow.sklearn.load_model(logged_model)
+
     data = np.array([data])
     result = model.predict(data)
     proba = model.predict_proba(data)

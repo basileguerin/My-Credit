@@ -1,6 +1,7 @@
 import unittest
 from fastapi.testclient import TestClient
 from app import app
+import boto3
 
 class TestAPI(unittest.TestCase):
     client = TestClient(app)
