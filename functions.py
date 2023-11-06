@@ -32,7 +32,7 @@ def standardize_labelize(df: pd.DataFrame):
 def train_model(csv_train_path: str):
     """
     A partir du chemin d'un fichier csv contenant des données d'entraînement, cette fonction réalise toutes les étapes
-    pour entraîner un XGBClassifer.
+    pour entraîner un RandomForestClassifier.
     Retourne le modèle entraîné ainsi que les dictionnaires contenant les scalers en encoders pour les test.
     """
     df = get_data(csv_train_path)
@@ -41,7 +41,7 @@ def train_model(csv_train_path: str):
     y = df['y']
     model = RandomForestClassifier()
     model.fit(X, y)
-    return model, scalers, encoders
+    return model, scalers, encoders, X, y
 
 def test_model(csv_test_path: str, model: RandomForestClassifier, scalers: dict, encoders: dict):
     """
@@ -64,5 +64,5 @@ def test_model(csv_test_path: str, model: RandomForestClassifier, scalers: dict,
     print(f"Classification Report :\n{classification_report_result}")
 
 if __name__ == "__main__":
-    model, scalers, encoders = train_model("./train.csv")
+    model, scalers, encoders, _, _ = train_model("./train.csv")
     test_model("./test.csv", model, scalers, encoders)
