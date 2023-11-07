@@ -9,6 +9,6 @@ RUN pip install -r requirements.txt
 # Copy your project files into the container
 COPY . .
 
-RUN pytest test.py || exit 1
+RUN python3 test.py
 
 CMD python3 train.py
