@@ -13,7 +13,7 @@ scal = joblib.load("scalers")
 os.environ['AWS_ACCESS_KEY_ID'] = "AKIA3R62MVALHESATEYJ"
 os.environ['AWS_SECRET_ACCESS_KEY'] = "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"
 mlflow.set_tracking_uri("https://isen-mlflow-fae8e0578f2f.herokuapp.com/")
-logged_model = 'runs:/d9d5101dedb34179b54ada9b666b81cd/My-Credit'
+logged_model = 'runs:/6ef80807a5774935978d92bdd6b18250/My-Credit'
 model = mlflow.sklearn.load_model(logged_model)
 
 # Configuration d'une classe BaseModel pour s'assurer que les 
