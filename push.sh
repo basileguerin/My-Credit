@@ -7,9 +7,8 @@
 # Create Heroku app
 #heroku create streamlit-isen-g1
 
-
 # Build Image MAC ARM
-docker buildx build --platform linux/amd64 -t streamlit-isen-g1  .
+# docker buildx build --platform linux/amd64 -t streamlit-isen-g1  .
 
 # Build Image 
 docker build . -t streamlit-isen

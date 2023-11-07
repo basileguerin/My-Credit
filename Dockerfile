@@ -1,8 +1,22 @@
-FROM  continuumio/miniconda3
+# FROM  continuumio/miniconda3
+
+# WORKDIR /home/app
+
+# RUN pip install streamlit joblib streamlit_echarts pandas scikit-learn
+
+# COPY . /home/app
+
+# CMD streamlit run app.py --server.port $PORT
+
+FROM continuumio/miniconda3
 
 WORKDIR /home/app
 
-RUN pip install streamlit joblib streamlit_echarts pandas scikit-learn
+RUN apt-get update && apt-get install -y git
+
+RUN git clone https://github.com/basileguerin/My-Credit.git --branch Front --single-branch .
+
+RUN pip install -r requirements.txt
 
 COPY . /home/app
 
