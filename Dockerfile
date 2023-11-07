@@ -6,8 +6,6 @@ RUN apt-get update && apt-get install -y git
 
 RUN git clone https://github.com/basileguerin/My-Credit.git --branch Model --single-branch .
 
-COPY . .
-
 RUN pip install -r requirements.txt
 
 RUN python3 test.py
