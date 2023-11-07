@@ -8,9 +8,9 @@ RUN pip install -r requirements.txt
 
 RUN apt-get update && apt-get install -y git
 
-RUN git clone -b Model --single-branch https://github.com/basileguerin/My-Credit.git
+RUN git clone -b Model --single-branch https://github.com/basileguerin/My-Credit.git my-credit
 
-COPY My-credit.git/ .
+COPY my-credit/ .
 
 RUN python3 test.py
 
