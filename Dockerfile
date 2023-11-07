@@ -4,6 +4,9 @@ FROM continuumio/miniconda3
 # Définissez le répertoire de travail
 WORKDIR /home/app
 
+# Recuperation du repo
+RUN git clone --branch Back https://github.com/basileguerin/My-Credit .
+
 # Copiez les fichiers nécessaires
 COPY requirements.txt .
 
