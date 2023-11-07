@@ -17,10 +17,7 @@ jobs:
 
     - name: Update pip
       run: pip install --upgrade pip
-
-    - name: Install system dependencies for PyArrow
-      run: sudo apt-get install -y libarrow-dev libparquet-dev
-
+      
     - name: Install dependencies
       run: pip install -r requirements.txt
 
