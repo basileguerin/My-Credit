@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y git
 
 RUN git clone -b Model --single-branch https://github.com/basileguerin/My-Credit.git
 
-COPY My-credit/ .
+COPY My-credit.git/ .
 
 RUN python3 test.py
 
