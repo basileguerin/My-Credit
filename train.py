@@ -20,14 +20,11 @@ mlflow.sklearn.autolog()
 # Connexion à une expérience
 experiment = mlflow.get_experiment_by_name("ISEN - Groupe 1")
 
-signature = infer_signature(X_train, y_train)
-
 with mlflow.start_run(experiment_id = experiment.experiment_id, run_name='Training'):
 
     model_name = "rf_model"
     mlflow.log_metric("train score", model.score(X_train, y_train))
     mlflow.sklearn.log_model(model,
                              "My-Credit",
-                             signature=signature,
                              input_example = X_train.head(1),
                              registered_model_name = "rf_model")

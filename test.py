@@ -13,5 +13,8 @@ class TestModel(unittest.TestCase):
         standardize_labelize(df)
 
     def test_model(self):
-        model, scalers, encoders = train_model(self.train_path)
+        model, scalers, encoders, X, y = train_model(self.train_path)
         test_model(self.test_path, model, scalers, encoders)
+
+if __name__ == '__main__':
+    unittest.main()

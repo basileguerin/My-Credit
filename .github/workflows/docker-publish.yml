@@ -1,0 +1,22 @@
+name: Publish Docker image
+
+on:
+  push:
+    branches:
+      - Model
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t basileguerin/train_model:latest .
+          docker push basileguerin/train_model:latest
