@@ -5,6 +5,7 @@ from functions import *
 # récupération du dictionnaire de encoders
 values_list = joblib.load('encoders')
 
+# dictionnaire des valeurs min/max ou options
 values = {
         'age': {
             'min': 18,
